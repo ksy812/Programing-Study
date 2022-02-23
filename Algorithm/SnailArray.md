@@ -22,9 +22,16 @@ while(forward != 0){
     row += sign;
     arr[row][col] = num++;
   }
-    sign *= -1; //부호를 바꿈
+  sign *= -1; //부호를 바꿈
+}
+```
+
+```c
+for(int i=1; i<=rows; i++){
+  for(int j=1; j<=columns; j++){
+    vec[i-1][j-1] = (i-1) * columns + j; //****
+  }
 }
 ```
 ### 추가할 부분
 달팽이 배열의 응용(기존의 달팽이 배열을 (반)시계 방향으로 한 칸씩 이동 시키는 방법 <br>
-더 간단한 코드
