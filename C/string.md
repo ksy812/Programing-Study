@@ -18,6 +18,6 @@ str.compare(param): 자기자신과 매개변수를 비교해서 같으면 0을 
 * <strong>str.append(index, sub)</strong>: index의 앞에 sub를 추가함
 * <strong>str.replace(start, end, sub)</strong>: start ~ end-1을 sub로 대체함
 
-* <strong>str.erase(start, end)</strong>: start ~ end의 문자열을 삭제함
+* <strong>str.erase(start, end)</strong>: start ~ end-1의 문자열을 삭제함
 * <strong>str.clear()</strong>: 문자열을 모두 비움. 이 때, capacity는 변하지 않음
 * <strong>str.empty()</strong>: 문자열이 비었는지 확인 후 bool값을 반환
