@@ -1,5 +1,5 @@
 # string
-C++ STL에서 지원하는 문자열 클래스. <strong>#include 'string'</strong>을 통해서 사용할 수 있다.<br>
+C++ STL에서 지원하는 문자열 클래스. <strong>#include'string'</strong>을 통해서 사용할 수 있다.<br>
 C에서의 문자열과 C++에서의 문자열의 차이에 집중하며 공부하자. <b>string</b>과 <b>char*</b>, <b>char[]</b> 의 차이에 주의해야한다.<br>
 <br>
 
