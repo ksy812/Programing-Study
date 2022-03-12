@@ -11,4 +11,4 @@ SQL(Structed Query Language)를 사용하며 이에는 MySQL, Oracle, Mongo DB �
 
 ## 장점
 * 중복되는 데이터를 줄일 수 있다.
-* 
+* 일관성 있게 데이터를 관리할 수 있다.
