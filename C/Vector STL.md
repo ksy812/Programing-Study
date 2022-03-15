@@ -19,6 +19,8 @@ int 외에도 string, 클래스 객체와 같은 다양한 자료형을 사용�
 * <strong>vector.capacity()</strong>: 벡터가 할당된 메모리 크기를 반환한다. size와는 차이가 있다. <br>
 * <strong>vector.empty()</strong>: 벡터가 비어있는지 확인 후, bool 값을 반환한다. <br>
 * <strong>vector.erase(start, end)</strong>: start~end 위치에 있는 값을 삭제한다. <br>
+* <strong>vector.begin()</strong>: 벡터의 시작 주소를 참조한다. <br>
+* <strong>vector.begin()</strong>: 벡터의 시작 주소를 참조한다. <br>
 <br>
 
 ## 2차원 Vector
@@ -55,4 +57,4 @@ void main()
 }
 ```
 위에서 알 수 있듯이 unique를 단독으로 사용하는 경우에는 문제가 발생한다. <strong>중복값을 제거하되, 벡터의 사이즈는 변하지 않기 때문의 기존의 값들이 남아있는 것이다.</strong> 이러한 문제는 resize()를 사용함으로써 해결할 수 있다. <br>
-그보다도 더 간편한 방법이 있는데, <strong>바로 unique와 erase를 함께 쓰는 것이다.</strong> 이렇게 사용하는 경우에는 중복값이 있는 인덱스를 아예 삭제하기 때문에 따로 resize)_를 사용하지 않아도 된다.<br>
+그보다도 더 간편한 방법이 있는데, <strong>바로 unique와 erase를 함께 쓰는 것이다.</strong> 이렇게 사용하는 경우에는 중복값이 있는 인덱스를 아예 삭제하기 때문에 따로 resize를 사용하지 않아도 된다.<br>
