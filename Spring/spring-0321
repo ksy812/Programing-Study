@@ -1,0 +1,141 @@
+<<spring
+- java기반의 웹 개발 프레임워크
+- 2003년 ‘Rod Johnson’이 발표
+- 프레임워크(framework): 프로그램을 작성할 때 뼈대가 되는 골격
+
+- builder: 자바 소스를 실행할 수 있는 독립적인 형태로 변환하는 과정
+test.java ---------> test.class---------> test 실행
+이러한 빌더를 도와주는 도구를 build 도구라고 하는데, 많은 도구 중에서 가장 사용이 많은 것은 maven, gradle 이다. 우리는 maven 쓸거임.
+
+* 스프링에서 객체는 스프링이 만드는거임. 개발자는 지시만 함. //*********
+
+TestBean t1 = new TestBean();
+- 일반 자바: 클래스가 변경되면 참조변수 부분과 객체생성 부분 모두 수정해야 함.
+- 다형성을 적용하면: 객체생성 부분만 수정하면 됨. 참조변수 부분은 변하지 않는 이유? 인터페이스이기 때문
+
+<<maven
+- 자바 빌드를 자동으로 해주는 도구
+- spring에서 필요한 라이브러리를 자동으로 다운받아 설치해주는 도구
+- spring + sts + maven
+- spring boot + gradle + intellij
+
+<<spring framework의 특징
+- 메모리를 적게 사용하는 경량이며, 스프링이 자바 객체를 직접 관리
+- POJO(Plain Old Java Object: 단순한 자바 오브젝트) 방식의 프레임워크
+- IOC(Inversion of Control: 제어의 역전): 개발의 흐름과 객체의 제어권을 개발자가 아닌, 스프링이 제어하는 것
+- DI(Dependency Injection: 의존성 주입): 개체 생성 시 객체가 관리할 값을 넣어주는 것(생성자 이용 / setter 이용)
+- AOP(Aspect-Oriented Programming) 지원
+- myBatis, JPA, Hibernate등의 데이터베이스 라이브러리 지원 //*********
+* 개념을 제대로 알지 못하면 코드 분석조차 하기 힘듦(쌤피셜)
+
+
+- 자바 버전 1.8(project-properties-project facets-convert~-java 1.8설정)
+
+- beans 패키지 - class TestBean{} 만들 것. 내용 Xx
+config만든 이유? testBean의 객체 생성 명령 위함
+
+xml 로딩할 때에 객체가 생기는거임!~
+스프링은 기본적으로 싱글톤 singleton: 객체 한 번 생성되면? 계속 그 객체 사용함 => 같은 주소 가짐
+
+
+- spring core에 필요한 라이브러리 : spring - context
+			       log: slf4j, lombok
+pom.xml
+- spring-context
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.3.16</version>
+</dependency>
+
+
+-lombok
+
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.22</version>
+    <scope>provided</scope>
+</dependency>
+
+
+- slf4j
+
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.36</version>
+</dependency>
+
+
+
+스프링의 객체는 xml파일 로딩 시에 생성됨!!!!!!!!!!!!!!!!!!!! 제발 기억하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+- lazy-init = “true” : getBean() 호출시 생성
+- scope=“prototype” : getBean0- 호출할 때마다 새로운 객체 생성 (lazy-init = “true”여야 함)
+- init-method(): 생성자 이후 자동으로 실행되는 메서드를 설정하는 옵션
+- destroy-method(): 객체소멸 이전에 자동으로 실행되는 메서드 (ctx.close() 바로 전에 실행되는 메서드)
+
+ctx.close(): 컨테이너의 Bean 소멸
+
+<<DI (dependency injection): 의존성 주입
+:bean에 값이나 객체를 주입하는 것
+1. Constructor DI(생성자를 통한 주입)
+	1) 기본형 변수: <constructor-age value=    [type=    index=  ] />
+	4) 참조형 변수:
+		4-1) <constructor-arg ref=“주입할 객체 이름”/>
+		4-2) <constructor-arg>
+			<bean class=“주입할 객체 클래스 주소”/>
+		　　 </constructor-arg>
+우선순위: String > double > int
+	3) index: 원하는 위치에 값 주입 *동일한 타입의 매개변수가 여러개 있을 때 사용
+
+2. Setter DI(setter를 통한 주입)
+	기본형: <property name=    value=    />
+	참조형: <property name=    ref=   />
+	*name에 지정된 이름의 set메서드를 호출하여 실행하는 것
+	ex) <property name=“age” value=“30”/>  //SetAge()의 인자로 30을 넘겨 세팅.
+
+<bean id="t4" class="kr.hs.study.beans.TestBean" lazy-init="true">
+	<constructor-arg value="spring3" type="java.lang.String"/>
+</bean> 
+
+* 스프링에서는 매개변수 순서 바뀌어도 무관함. 타입과 개수만 맞춰주면 됨.
+
+객체(참조변수)를 매개변수로 가지는 생성자의 경우 constructor-arg 방식 특이함...
+<constructor-arg>
+	<bean class="kr.hs.study.beans.DataBean"/>
+</constructor-arg>
+<bean id="t1" class="kr.hs.study.beans.TestBean" lazy-init="true">
+	<constructor-arg value="11" type="int"/>
+	<constructor-arg value="Wacom" type="java.lang.String"/>
+	<constructor-arg>
+		<bean class="kr.hs.study.beans.DataBean"/>
+	</constructor-arg>
+	</bean>
+	    
+	    
+<bean id="d2" class="kr.hs.study.beans.DataBean2"/>
+    <bean id="t2" class="kr.hs.study.beans.TestBean2" lazy-init="true">
+    	<property name="data1" value="22"/>
+    	<property name="data3" ref="d2"/>
+    </bean>
+
+
+<<자동주입
+:참조형 타입에만 적용 가능(기본형에는 적용Xx)
+내부적으로는 Setter DI 방식으로 동작함
+
+1. autowire=“byName”
+: 멤버변수와 같은 이름을 가진 bean을 찾아 자동주입.
+예) private DataBean data1; <-- 내부적으로 setData1()메서드가 실행됨
+
+2. autowire=“byType”
+: 멤버변수와 같은 타입을 가진 bean을 찾아 자동주입. 동일한 타입의 bean이 2개 이상일 경우, 에러 발생.
+
+3. autowire=“constructor” (byType)
+: 생성자의 매개변수와 타입이 같은 bean을 찾아서 자동주입. 동일한 타입의 bean이 2개 이상일 경우, 에러 발생.
