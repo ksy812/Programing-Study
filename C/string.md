@@ -11,8 +11,9 @@ C에서의 문자열과 C++에서의 문자열의 차이에 집중하며 공부�
 * <strong>str.capacity()</strong>: 문자열의 메모리 사이즈 반환
 * <strong>str.substr(index, cnt)</strong>: index부터 cnt개를 반환
 
-* <strong>str.compare(param)</strong>: 자기자신과 매개변수를 비교해서 같으면 0을 반환. 문자열이 같지 않다면, 아스키코드를 기준으로 1, -1을 반환.
+* <strong>str.compare(param)</strong>: 자기자신과 매개변수를 비교해서 같으면 0을 반환. 문자열이 같지 않다면, 아스키코드를 기준으로 1, -1을 반환
 <br>
+* <strong>str.to_string(param)</strong>: 숫자형인 param을 string 형태로 반환
 
 ### 추가, 삭제
 * <strong>str.append(sub)</strong>: 맨 뒤에 sub를 추가함
