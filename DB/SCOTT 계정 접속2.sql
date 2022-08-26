@@ -156,7 +156,7 @@ GROUP BY job;
 
 --예제4
 SELECT job, deptno, count(*), trunc(avg(sal)), sum(sal)
-FROM emp
+FROM emp    
 GROUP BY job, deptno; --job, deptno 2개를 그룹의 기준으로 함.
 
 --p.98 HAVING
@@ -180,7 +180,7 @@ FROM emp
 HAVING avg(sal)>=3000
 GROUP BY job;
 
-
+-- 세상에!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 --5/16 수업 빠짐
 
 --Grouping sets
@@ -299,6 +299,7 @@ commit;
 SELECT * FROM emp; --14행
 SELECT * FROM dept; --5행
 SELECT * FROM dept; --4행
+SELECT * FROM LOCATIONS; --4행
 
 --카타시안 곱
 SELECT e.empno, e.ename, e.deptno, d.deptno, d.dname
@@ -337,6 +338,7 @@ SELECT e.empno, e.ename, e.job, e.sal, s.grade, s.losal, s.hisal
 FROM salgrade s, emp e
 WHERE e.sal >= s.losal AND e.sal <= s.hisal;
 
+--예제2
 SELECT e.empno, e.ename, e.job, e.sal, s.grade, s.losal, s.hisal
 FROM salgrade s, emp e
 WHERE e.sal BETWEEN s.losal AND s.hisal;
@@ -813,3 +815,40 @@ WHERE sum > ( SELECT AVG(sal) FROM emp);
 --서브쿼리의 결과값을 가지고 나머지 쿼리를 실행한다.
 
 
+--0826
+-- p.144
+select * from emp;
+
+create table emp_history (name, title, deptid)
+as select ename, job, deptno from emp;
+
+select * from emp_history;
+
+select ename, job from emp
+UNION -- 같은 데이터는 1번만 출력한다.
+select name, title from emp_history;
+
+select ename, job from emp
+UNION ALL -- 2개의 테이블의 모든 데이터를 출력한다.
+select name, title from emp_history;
+
+delete emp_history where title='CLERK';
+
+select ename, job from emp
+INTERSECT -- 2개의 테이블에서 공통된 데이터를 출력한다.
+select name, title from emp_history;
+
+select ename, job from emp
+MINUS -- emp 테이블과 emp_history 테이블의 공통된 데이터를  삭제하고
+-- emp 테이블에 있는 데이터만 출력
+select name, title from emp_history;
+
+-- p.149
+select deptno, TO_CHAR(NULL) location, hiredate from emp
+UNION
+select  deptno, dname, TO_DATE(null) from dept;
+
+select deptno, TO_CHAR(NULL) location, hiredate from emp
+UNION
+select  deptno, dname, TO_CHAR(null) from dept;
+-- UNION을 하기위해서는 컬럼들의 데이터 타입이 같아야 한다.
